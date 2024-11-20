@@ -101,3 +101,9 @@ html::-webkit-scrollbar-track {
 html::-webkit-scrollbar-thumb {
   background: #ffffff;
 }
+
+.bgWild {
+  background-image: url('/15342644.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
