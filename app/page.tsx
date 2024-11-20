@@ -73,6 +73,18 @@ export default function Home() {
     },
   })
 
+  const [isPasswordVerified, setIsPasswordVerified] = useState(false);
+  const [passwordInput, setPasswordInput] = useState("");
+
+  const handlePasswordSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (passwordInput === process.env.NEXT_PUBLIC_FORM_PASSWORD) {
+      setIsPasswordVerified(true);
+    } else {
+      alert("Incorrect password. Please try again.");
+    }
+  };
+
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     toast({
       title: "You submitted the following values:",
@@ -154,97 +166,112 @@ export default function Home() {
                 </Button>
               </DialogTrigger>
               <DialogContent className="bg-white w-full h-auto">
-                <DialogHeader>
-                  <DialogTitle>This is the title</DialogTitle>
-                  <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="w-full flex flex-col gap-6">
-                      <FormField
-                        control={form.control}
-                        name="name"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Write your username here;!</FormLabel>
-                            <FormControl>
-                              <Input placeholder="kenobi" {...field} />
-                            </FormControl>
-                            <FormDescription>
-                              This is your public display name, don't use original one.
-                            </FormDescription>
-                            <FormMessage />
-                          </FormItem>
-                        )}
+                {!isPasswordVerified ? (
+                  <div className="flex flex-col items-center justify-center gap-4 p-6">
+                    <DialogTitle>Enter Password</DialogTitle>
+                    <form onSubmit={handlePasswordSubmit} className="flex flex-col items-center gap-4">
+                      <input
+                        type="password"
+                        value={passwordInput}
+                        onChange={(e) => setPasswordInput(e.target.value)}
+                        className="border rounded-md px-4 py-2"
+                        placeholder="Enter password"
                       />
-                      <FormField
-                        control={form.control}
-                        name="review"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Write your confession here;!</FormLabel>
-                            <FormControl>
-                              <Textarea placeholder="shadcn" {...field} className="min-h-32" />
-                            </FormControl>
-                            <FormDescription>
-                              This is your public confession, don't include your personal details;
-                            </FormDescription>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="rating"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>College</FormLabel>
-                            <Select onValueChange={field.onChange} value={field.value}>
-                              <FormControl>
-                                <SelectTrigger>
-                                  <SelectValue placeholder="Select a college to display" />
-                                </SelectTrigger>
-                              </FormControl>
-                              <SelectContent>
-                                <SelectItem value="1">⭐</SelectItem>
-                                <SelectItem value="2">⭐⭐</SelectItem>
-                                <SelectItem value="3">⭐⭐⭐</SelectItem>
-                                <SelectItem value="4">⭐⭐⭐⭐</SelectItem>
-                                <SelectItem value="5">⭐⭐⭐⭐⭐</SelectItem>
-                                <SelectItem value="0">😵‍💫</SelectItem>
-                              </SelectContent>
-                            </Select>
-                            <FormDescription>
-                              Select one of these colleges or other if you can't find yours.{" "}
-                              <Link href="/request-college" className="font-bold text-[#101010]">request your college.</Link>.
-                            </FormDescription>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="isWatched"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Have you watched it?</FormLabel>
-                            <FormControl>
-                              <div className="flex items-center gap-2">
-                                <Switch
-                                  checked={field.value}
-                                  onCheckedChange={field.onChange}
-                                />
-                                <span>{field.value ? "Yes" : "No"}</span>
-                              </div>
-                            </FormControl>
-                            <FormDescription>
-                              Toggle the switch to indicate if you have watched this movie.
-                            </FormDescription>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <Button type="submit" className="w-auto">Submit</Button>
+                      <Button type="submit">Submit</Button>
                     </form>
-                  </Form>
-                </DialogHeader>
+                  </div>
+                ) : (
+                  <DialogHeader>
+                    <DialogTitle>Add the movie here;!</DialogTitle>
+                    <Form {...form}>
+                      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full flex flex-col gap-6">
+                        <FormField
+                          control={form.control}
+                          name="name"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Name of the movie;!</FormLabel>
+                              <FormControl>
+                                <Input placeholder="Star Wars" {...field} />
+                              </FormControl>
+                              <FormDescription>
+                                Try using full name pls;
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="review"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Write your thoughts on this movie;</FormLabel>
+                              <FormControl>
+                                <Textarea placeholder="liked it;" {...field} className="min-h-32" />
+                              </FormControl>
+                              <FormDescription>
+                                This is your public confession, don't include your personal details;
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="rating"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>College</FormLabel>
+                              <Select onValueChange={field.onChange} value={field.value}>
+                                <FormControl>
+                                  <SelectTrigger>
+                                    <SelectValue placeholder="How much you liked this one;" />
+                                  </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                  <SelectItem value="1">⭐</SelectItem>
+                                  <SelectItem value="2">⭐⭐</SelectItem>
+                                  <SelectItem value="3">⭐⭐⭐</SelectItem>
+                                  <SelectItem value="4">⭐⭐⭐⭐</SelectItem>
+                                  <SelectItem value="5">⭐⭐⭐⭐⭐</SelectItem>
+                                  <SelectItem value="0">😵‍💫</SelectItem>
+                                </SelectContent>
+                              </Select>
+                              <FormDescription>
+                                if it's a waste of time, select 😵‍💫;
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="isWatched"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Have you watched it?</FormLabel>
+                              <FormControl>
+                                <div className="flex items-center gap-2">
+                                  <Switch
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                  />
+                                  <span>{field.value ? "Yes" : "No"}</span>
+                                </div>
+                              </FormControl>
+                              <FormDescription>
+                                Toggle the switch to indicate if you have watched this movie.
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <Button type="submit" className="w-auto">Submit</Button>
+                      </form>
+                    </Form>
+                  </DialogHeader>
+                )}
               </DialogContent>
             </Dialog>
 
