@@ -152,15 +152,15 @@ export default function Home() {
 
   return (
     <React.Fragment>
-      <div className="w-full h-auto min-h-screen flex flex-col items-center justify-start py-20 bgWild">
+      <div className="w-full h-auto min-h-screen flex flex-col items-center justify-start py-20">
         <div className="md:w-10/12 w-11/12 h-full flex flex-col">
 
           <div className="absolute top-0 flex flex-row justify-between items-center md:w-10/12 w-11/12 h-auto py-6">
-            <span className="text-2xl font-normal uppercase text-white">Rozum Unit 7134</span>
+            <span className="text-2xl font-normal uppercase">Rozum Unit 7134</span>
 
             <Dialog>
               <DialogTrigger asChild>
-                <Button variant={'secondary'} className='rounded-full text-base z-50 flex items-center justify-center gap-2'>
+                <Button variant={'default'} className='rounded-full text-base z-50 flex items-center justify-center gap-2'>
                   <PackagePlus className='w-5 h-5' />
                   <span className='pt-[3px]'>Add New</span>
                 </Button>
@@ -278,7 +278,7 @@ export default function Home() {
           </div>
 
           <div className="w-full h-auto">
-            <div>Movies Watched</div>
+            <div className="text-3xl font-medium my-6">Movies Watched</div>
             <div>
               {error && <p className="error">{error}</p>}
 
@@ -289,11 +289,11 @@ export default function Home() {
                   {posts.length === 0 ? (
                     <Loader />
                   ) : (
-                    <div className="w-full h-auto flex flex-row flex-wrap gap-4">
+                    <div className="w-full h-auto flex flex-row justify-between flex-wrap gap-4">
                       {posts
                         .filter((post) => post.isWatched)
                         .map((post) => (
-                          <div key={post._id} className="w-96 relative">
+                          <div key={post._id} className="md:w-[32%] w-full relative">
                             <Card className="h-full">
                               <CardHeader>
                                 <CardTitle className="text-lg font-light">
