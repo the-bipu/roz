@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "    "build": "npm install --legacy-peer-deps && next build",
+",
     "start": "next start",
     "lint": "next lint"
   },
@@ -21,8 +22,8 @@
     "lucide-react": "^0.460.0",
     "mongoose": "^8.8.2",
     "next": "15.0.3",
-    "react": "19.0.0-rc-66855b96-20241106",
-    "react-dom": "19.0.0-rc-66855b96-20241106",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-hook-form": "^7.53.2",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7",
