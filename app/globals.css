@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -50,7 +50,7 @@
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
 
-    --font-main: "Courier Prime", monospace;
+    --font-main: "Mona Sans", sans-serif;
   }
   .dark {
     --background: 240 10% 3.9%;
@@ -102,8 +102,41 @@ html::-webkit-scrollbar-thumb {
   background: #ffffff;
 }
 
-.bgWild {
-  background-image: url('/15342644.jpg');
+.bg-roz {
+  background-image: url("/15342644.jpg");
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+/* for loader */
+
+.loader {
+  border: 8px solid rgba(0, 0, 0, 0.545);
+  border-left-color: transparent;
+  border-radius: 50%;
+}
+
+.loader {
+  border: 8px solid rgba(0, 0, 0, 0.723);
+  border-left-color: transparent;
+  width: 52px;
+  height: 52px;
+}
+
+.loader {
+  border: 6px solid rgba(0, 0, 0, 0.692);
+  border-left-color: transparent;
+  width: 52px;
+  height: 52px;
+  animation: spin89345 1s linear infinite;
+}
+
+@keyframes spin89345 {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
