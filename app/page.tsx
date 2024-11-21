@@ -35,10 +35,12 @@ import {
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Switch } from "@/components/ui/switch";
-import Link from "next/link"
 import Loader from "@/components/common/Loader";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { PackagePlus } from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
+import Head from "next/head";
 
 const FormSchema = z.object({
   name: z.string().min(2, {
@@ -75,6 +77,8 @@ export default function Home() {
 
   const [isPasswordVerified, setIsPasswordVerified] = useState(false);
   const [passwordInput, setPasswordInput] = useState("");
+  const [isActive, setIsActive] = useState('watched');
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handlePasswordSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -152,17 +156,25 @@ export default function Home() {
 
   return (
     <React.Fragment>
-      <div className="w-full h-auto min-h-screen flex flex-col items-center justify-start py-20">
+      <div className="w-full h-auto min-h-screen flex flex-col items-center justify-start py-20 bg-[#0d1117] text-white">
+
+        <Head>
+          <link rel="icon" href="/header.png" type="image/png" sizes="70x70" />
+          <title>Rozum Unit 7134</title>
+        </Head>
+
         <div className="md:w-10/12 w-11/12 h-full flex flex-col">
 
           <div className="absolute top-0 flex flex-row justify-between items-center md:w-10/12 w-11/12 h-auto py-6">
-            <span className="text-2xl font-normal uppercase">Rozum Unit 7134</span>
+            <Link href={'/'}>
+              <Image src={'/wild-robot.svg'} alt='wild robot logo' width={120} height={50} />
+            </Link>
 
             <Dialog>
               <DialogTrigger asChild>
-                <Button variant={'default'} className='rounded-full text-base z-50 flex items-center justify-center gap-2'>
-                  <PackagePlus className='w-5 h-5' />
-                  <span className='pt-[3px]'>Add New</span>
+                <Button variant={'secondary'} className='rounded-full text-base z-50 flex items-center justify-center gap-2'>
+                  <PackagePlus className='w-6 h-6' />
+                  <span className='font-medium'>Add New</span>
                 </Button>
               </DialogTrigger>
               <DialogContent className="bg-white w-full h-auto">
@@ -277,67 +289,69 @@ export default function Home() {
 
           </div>
 
-          <div className="w-full h-auto">
-            <div className="text-3xl font-medium my-6">Movies Watched</div>
-            <div>
-              {error && <p className="error">{error}</p>}
+          <div className="w-full h-auto mt-10">
 
-              {loading ? (
-                <Loader />
-              ) : (
-                <React.Fragment>
-                  {posts.length === 0 ? (
-                    <Loader />
-                  ) : (
-                    <div className="w-full h-auto flex flex-row justify-between flex-wrap gap-4">
-                      {posts
-                        .filter((post) => post.isWatched)
-                        .map((post) => (
-                          <div key={post._id} className="md:w-[32%] w-full relative">
-                            <Card className="h-full">
-                              <CardHeader>
-                                <CardTitle className="text-lg font-light">
-                                  {post.name}
-                                </CardTitle>
-                                <CardDescription className="text-base font-medium">
-                                  {post.review}
-                                </CardDescription>
-                              </CardHeader>
-                              <CardContent>
-                                <div className="flex justify-end space-x-1.5 text-red-500 absolute top-4 right-4">
-                                  <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                                  <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                                  <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                                </div>
-                                <div className="flex flex-col">
-                                  <span>{'⭐'.repeat(Number(post.rating))}</span>
-                                </div>
-                              </CardContent>
-                            </Card>
-                          </div>
-                        ))}
-                    </div>
-                  )}
-                </React.Fragment>
-              )}
+            <div className="flex flex-row items-center justify-center gap-4 mb-8">
+              <Button variant={isActive === 'watched' ? 'secondary' : 'outline'} className={`text-base font-medium rounded-full px-6 py-2`} onClick={() => setIsActive('watched')}>Movies Watched</Button>
+              <Button variant={isActive === 'wishlist' ? 'secondary' : 'outline'} className={`text-base font-medium rounded-full px-6 py-2`} onClick={() => setIsActive('wishlist')}>Wishlist</Button>
+              <Input className="w-96 h-9 rounded-full indent-4" placeholder="Search here..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value.toLowerCase())} />
             </div>
-          </div>
 
-          <div className="w-full h-auto">
-            <div>Wishlist</div>
-            <div>
-              {posts
-                .filter((post) => !post.isWatched)
-                .map((post) => (
-                  <div key={post._id} className="w-96 relative">
-                    <Card className="h-full">
-                      <CardHeader>
-                        <CardTitle className="text-lg font-light">{post.name}</CardTitle>
-                      </CardHeader>
-                    </Card>
+            {isActive === 'watched' ? (
+              <div>
+                {error && <p className="error">{error}</p>}
+
+                {loading ? (
+                  <Loader />
+                ) : (
+                  <div>
+                    {posts.length === 0 ? (
+                      <Loader />
+                    ) : (
+                      <div className="w-full h-auto flex flex-row justify-between flex-wrap gap-6">
+                        {posts
+                          .filter((post) => post.isWatched && post.name.toLowerCase().includes(searchQuery))
+                          .map((post) => (
+                            <div key={post._id} className="md:w-[32%] min-h-40 w-full relative">
+                              <Card className="h-full text-white bg-roz border-none flex flex-col justify-between">
+                                <CardHeader>
+                                  <CardTitle className="text-lg font-light flex items-start justify-start">
+                                    <div className="w-auto backdrop-blur-sm">{post.name}</div>
+                                  </CardTitle>
+                                  <CardDescription className="text-base font-medium">
+                                    {post.review}
+                                  </CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                  <div className="flex flex-col">
+                                    <span>{'⭐'.repeat(Number(post.rating))}</span>
+                                  </div>
+                                </CardContent>
+                              </Card>
+                            </div>
+                          ))}
+                      </div>
+                    )}
                   </div>
-                ))}
-            </div>
+                )}
+              </div>
+            ) : (
+              <div>
+                {posts
+                  .filter((post) => !post.isWatched && post.name.toLowerCase().includes(searchQuery))
+                  .map((post) => (
+                    <div key={post._id} className="md:w-[32%] w-full relative">
+                      <Card className="h-full text-white bg-roz border-none">
+                        <CardHeader>
+                          <CardTitle className="text-lg font-light flex items-start justify-start">
+                            <div className="w-auto backdrop-blur-sm">{post.name}</div>
+                          </CardTitle>
+                        </CardHeader>
+                      </Card>
+                    </div>
+                  ))}
+              </div>
+            )}
           </div>
 
         </div>
