@@ -318,7 +318,7 @@ export default function Home() {
                                   <CardTitle className="text-lg font-light flex items-start justify-start">
                                     <div className="w-auto backdrop-blur-sm">{post.name}</div>
                                   </CardTitle>
-                                  <CardDescription className="text-base font-medium">
+                                  <CardDescription className="text-base font-light text-white backdrop-blur-sm">
                                     {post.review}
                                   </CardDescription>
                                 </CardHeader>
