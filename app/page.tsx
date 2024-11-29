@@ -336,7 +336,7 @@ export default function Home() {
                 )}
               </div>
             ) : (
-              <div>
+              <div className="w-full h-auto flex flex-row justify-between flex-wrap gap-6">
                 {posts
                   .filter((post) => !post.isWatched && post.name.toLowerCase().includes(searchQuery))
                   .map((post) => (
