@@ -8,10 +8,11 @@ import parse from "html-react-parser";
 import { useRouter } from "next/router";
 
 const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
-import "react-quill/dist/quill.snow.css";
+import "react-quill-new/dist/quill.snow.css";
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
+import Navbar from '@/components/common/Navbar';
 
 const CreateBlogs = () => {
     // const router = useRouter();
@@ -96,14 +97,12 @@ const CreateBlogs = () => {
                 <title>Rozum Unit 7134</title>
             </Head>
 
-            <div className='flex flex-col items-center justify-center p-4 pl-0 h-auto w-4/5 overflow-y-auto scrollHide'>
-                <div className=' w-full h-full flex flex-col justify-start px-1'>
+            <div className='flex flex-col items-center justify-center h-full w-full overflow-y-auto scrollHide'>
+                <div className='md:w-10/12 w-11/12 h-full flex flex-col justify-start'>
 
-                    <Link href={'/'}>
-                        <Image src={'/wild-robot.svg'} alt='wild robot logo' width={120} height={50} />
-                    </Link>
+                    <Navbar />
 
-                    <div className='flex flex-col gap-4 items-start justify-start w-full h-full py-2 my-2 px-0'>
+                    <div className='flex flex-col gap-4 items-start justify-start w-full h-full py-2 px-0 mt-24'>
                         <div className='p-0 flex flex-row flex-wrap w-full'>
 
                             <div className="flex flex-row gap-4 w-full">
