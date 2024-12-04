@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input"
 
 import Loader from "@/components/common/Loader";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import Head from "next/head";
 import Navbar from "@/components/common/Navbar";
 import { Square } from "lucide-react";
@@ -151,16 +152,32 @@ export default function Home() {
               <div className="w-full h-auto flex flex-row justify-between flex-wrap gap-6">
                 {blogs
                   .map((blog) => (
-                    <div key={blog._id} className="md:w-1/2 w-full relative">
-                      <Card className="h-full text-white bg-roz border-none flex flex-col justify-between">
-                        <CardHeader>
-                          <CardTitle className="text-lg font-light flex items-start justify-start">
-                            <div className="w-auto backdrop-blur-sm">{blog.title}</div>
-                          </CardTitle>
-                          <CardDescription className="text-base font-light text-white backdrop-blur-sm">
-                            {blog.description}
-                          </CardDescription>
-                          <div dangerouslySetInnerHTML={{ __html: (blog.content) }} />
+                    <div key={blog._id} className="w-full relative">
+                      <Card className="h-auto w-full border-none flex flex-col justify-between overflow-hidden">
+                        <CardHeader className='flex flex-row justify-between'>
+                          <div className='flex flex-col'>
+                            <CardTitle className="text-lg font-light flex items-start justify-start">
+                              <div className="w-auto backdrop-blur-sm">{blog.title}</div>
+                            </CardTitle>
+                            <CardDescription className="text-base font-light backdrop-blur-sm">
+                              {blog.description}
+                            </CardDescription>
+                          </div>
+                          <Dialog>
+                            <DialogTrigger asChild>
+                              <button className='text-sm button-56' role="button">
+                                View Post
+                              </button>
+                            </DialogTrigger>
+                            <DialogContent className='bg-white'>
+                              <DialogHeader>
+                                <DialogTitle>By, {blog.postedBy}</DialogTitle>
+                                <DialogDescription>
+                                  <div dangerouslySetInnerHTML={{ __html: (blog.content) }} />
+                                </DialogDescription>
+                              </DialogHeader>
+                            </DialogContent>
+                          </Dialog>
                         </CardHeader>
                         <CardContent>
                           <div className="flex flex-col">
