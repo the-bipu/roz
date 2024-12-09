@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import Head from "next/head";
 import Navbar from "@/components/common/Navbar";
 import { Square } from "lucide-react";
+import { UserContext } from "@/context/userContext";
 
 interface Post {
   _id: string;
@@ -30,6 +31,8 @@ interface Blog {
 }
 
 export default function Home() {
+  const { userEmail } = useContext(UserContext);
+
   const [isActive, setIsActive] = useState('watched');
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -38,34 +41,72 @@ export default function Home() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      setLoading(true);
-      try {
-        const response = await fetch(`/api/public`);
-        const another = await fetch(`/api/blogs/fetch`);
+  const fetchPosts = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(`/api/public`);
+      const another = await fetch(`/api/blogs/fetch`);
 
-        if (!response.ok) {
-          throw new Error(`Error: ${response.statusText}`);
-        }
-
-        if (!another.ok) {
-          throw new Error(`Error: ${response.statusText}`);
-        }
-
-        const data = await response.json();
-        const blogs = await another.json();
-
-        setPosts(data);
-        setBlogs(blogs);
-        setLoading(false);
-      } catch (error: any) {
-        setError(error.message);
+      if (!response.ok || !another.ok) {
+        throw new Error(`Error fetching data`);
       }
-    };
 
+      const data = await response.json();
+      const blogs = await another.json();
+
+      setPosts(data);
+      setBlogs(blogs);
+      setLoading(false);
+    } catch (error: any) {
+      setError(error.message);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchPosts();
   }, []);
+
+  async function handleMarkAsWatched(movieId: string) {
+    try {
+      const response = await fetch(`/api/update?id=${movieId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ isWatched: true }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update the movie');
+      }
+
+      console.log(`Movie ${movieId} marked as watched.`);
+      
+      await fetchPosts();
+    } catch (error) {
+      console.error('Error updating movie:', error);
+    }
+  }
+
+  async function handleMarkAsNotWatched(movieId: string) {
+    try {
+      const response = await fetch(`/api/update?id=${movieId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ isWatched: false }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update the movie');
+      }
+
+      console.log(`Movie ${movieId} marked as watched.`);
+
+      // Refetch the posts to update the UI
+      await fetchPosts();
+    } catch (error) {
+      console.error('Error updating movie:', error);
+    }
+  }
 
   return (
     <React.Fragment>
@@ -107,8 +148,14 @@ export default function Home() {
                             <div key={post._id} className="md:w-[32%] min-h-40 w-full relative">
                               <Card className="h-full text-white bg-roz border-none flex flex-col justify-between">
                                 <CardHeader>
-                                  <CardTitle className="text-lg font-light flex items-start justify-start">
+                                  <CardTitle className="text-lg font-light flex flex-row justify-between">
                                     <div className="w-auto backdrop-blur-sm">{post.name}</div>
+                                    {userEmail && (
+                                      <Square
+                                        className="cursor-pointer"
+                                        onClick={() => handleMarkAsNotWatched(post._id)}
+                                      />
+                                    )}
                                   </CardTitle>
                                   <CardDescription className="text-base font-light text-white backdrop-blur-sm">
                                     {post.review}
@@ -139,7 +186,12 @@ export default function Home() {
                         <CardHeader>
                           <CardTitle className="text-lg font-light flex flex-row justify-between items-center">
                             <div className="w-auto backdrop-blur-sm">{post.name}</div>
-                            <Square className="cursor-pointer" />
+                            {userEmail && (
+                              <Square
+                                className="cursor-pointer"
+                                onClick={() => handleMarkAsWatched(post._id)}
+                              />
+                            )}
                           </CardTitle>
                         </CardHeader>
                       </Card>

@@ -134,7 +134,7 @@ const Navbar = () => {
             </Link>
 
             <div className='flex flex-row gap-2'>
-                {admin && (
+                {(userEmail && admin) && (
                     <Dialog>
                         <DialogTrigger asChild>
                             <Button variant={'secondary'} className='rounded-full text-base z-50 flex items-center justify-center gap-2'>
@@ -253,7 +253,7 @@ const Navbar = () => {
                     </Dialog>
                 )}
 
-                {admin && (
+                {(userEmail && admin) && (
                     <Link href={'/blogs/new'}>
                         <Button variant={'secondary'} className='rounded-full text-base z-50 flex items-center justify-center gap-2'>
                             <PackagePlus className='w-6 h-6' />
