@@ -81,7 +81,7 @@ export default function Movies() {
       }
 
       console.log(`Movie ${movieId} marked as watched.`);
-      
+
       await fetchPosts();
     } catch (error) {
       console.error('Error updating movie:', error);
@@ -122,13 +122,15 @@ export default function Movies() {
 
           <Navbar />
 
-          <div className="w-full h-auto mt-10">
+          <div className="w-full h-auto mt-6">
 
-            <div className="flex flex-row items-center justify-center gap-4 mb-8">
-              <Button variant={isActive === 'watched' ? 'secondary' : 'outline'} className={`text-base font-medium rounded-full px-6 py-2`} onClick={() => setIsActive('watched')}>Movies Watched</Button>
-              <Button variant={isActive === 'wishlist' ? 'secondary' : 'outline'} className={`text-base font-medium rounded-full px-6 py-2`} onClick={() => setIsActive('wishlist')}>Wishlist</Button>
-              <Button variant={isActive === 'blogs' ? 'secondary' : 'outline'} className={`text-base font-medium rounded-full px-6 py-2`} onClick={() => setIsActive('blogs')}>Blogs</Button>
-              <Input className="w-96 h-9 rounded-full indent-4" placeholder="Search here..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value.toLowerCase())} />
+            <div className="flex flex-row items-center justify-between mb-8">
+              <div className="flex flex-row gap-4">
+                <Button variant={isActive === 'watched' ? 'secondary' : 'outline'} className={`text-base font-medium rounded-full px-6 py-2`} onClick={() => setIsActive('watched')}>Movies Watched</Button>
+                <Button variant={isActive === 'wishlist' ? 'secondary' : 'outline'} className={`text-base font-medium rounded-full px-6 py-2`} onClick={() => setIsActive('wishlist')}>Wishlist</Button>
+                <Button variant={isActive === 'blogs' ? 'secondary' : 'outline'} className={`text-base font-medium rounded-full px-6 py-2`} onClick={() => setIsActive('blogs')}>Blogs</Button>
+              </div>
+              <Input className="w-96 h-10 border-2 border-white bg-black rounded-full indent-4" placeholder="Search here..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value.toLowerCase())} />
             </div>
 
             {isActive === 'watched' && (
