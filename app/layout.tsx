@@ -3,6 +3,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { getServerSession } from "next-auth";
 import { SessionProvider } from "next-auth/react";
+import { UserProvider } from "@/context/userContext";
 
 export const metadata: Metadata = {
   title: "Rozum Unit 7134",
@@ -22,10 +23,11 @@ export default async function RootLayout({
         <body
           className={`antialiased`}
         >
-          {children}
-          <Toaster />
+          <UserProvider>
+            {children}
+            <Toaster />
+          </UserProvider>
         </body>
-
       </SessionProvider>
     </html>
   );
