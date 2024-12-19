@@ -108,6 +108,12 @@ html::-webkit-scrollbar-thumb {
   background-size: cover;
 }
 
+.bg-japan {
+  background-image: url("/mando.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 /* for loader */
 
 .loader {
