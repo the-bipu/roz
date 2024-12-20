@@ -102,6 +102,12 @@ html::-webkit-scrollbar-thumb {
   background: #ffffff;
 }
 
+@media (max-width: 768px) {
+  html::-webkit-scrollbar {
+    width: 0rem;
+  }
+}
+
 .bg-roz {
   background-image: url("/15342644.jpg");
   background-repeat: no-repeat;
