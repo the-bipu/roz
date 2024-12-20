@@ -43,48 +43,46 @@ const GetBlogs = () => {
   }, []);
 
   return (
-    <div className='flex w-full h-screen items-center justify-center bg-[#0d1117] text-white'>
+    <div className='flex w-full h-screen items-center justify-center bg-mando text-white'>
 
-      <div className="md:w-10/12 w-11/12 h-full flex flex-col">
+      <div className="w-11/12 h-full flex flex-col">
         <Navbar />
 
         <div className="w-full h-auto flex flex-row justify-between flex-wrap gap-6 mt-28">
           {blogs.map((blog) => (
-              <div key={blog._id} className="w-full relative">
-                <Card className="h-auto w-full border-none flex flex-col justify-between overflow-hidden">
-                  <CardHeader className='flex flex-row justify-between'>
-                    <div className='flex flex-col'>
-                      <CardTitle className="text-lg font-light flex items-start justify-start">
-                        <div className="w-auto backdrop-blur-sm">{blog.title}</div>
-                      </CardTitle>
-                      <CardDescription className="text-base font-light backdrop-blur-sm">
-                        {blog.description}
-                      </CardDescription>
-                    </div>
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <button className='text-sm button-56' role="button">
-                          View Post
-                        </button>
-                      </DialogTrigger>
-                      <DialogContent className='bg-white'>
-                        <DialogHeader>
-                          <DialogTitle>By, {blog.postedBy}</DialogTitle>
-                          <DialogDescription>
-                            <div dangerouslySetInnerHTML={{ __html: (blog.content) }} />
-                          </DialogDescription>
-                        </DialogHeader>
-                      </DialogContent>
-                    </Dialog>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex flex-col">
-                      <span>{blog.postedBy}</span>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            ))}
+            <div key={blog._id} className="w-full relative border-2 border-white bg-[#0f0f0faf] rounded-lg">
+              <Card className="h-auto w-full border-none flex flex-col justify-between overflow-hidden bg-transparent rounded-lg text-white">
+                <CardHeader className='flex flex-row justify-between items-start'>
+                  <div className='flex flex-col'>
+                    <CardTitle className="text-lg font-light flex items-start justify-start">
+                      <div className="w-auto backdrop-blur-sm font-bold">{blog.title}</div>
+                    </CardTitle>
+                    <CardDescription className="text-base font-light backdrop-blur-sm">
+                      {blog.description}
+                    </CardDescription>
+                  </div>
+                  <Dialog>
+                    <DialogTrigger>
+                      <div className='pr-6 font-semibold text-base uppercase'>View Post</div>
+                    </DialogTrigger>
+                    <DialogContent className='bg-white'>
+                      <DialogHeader>
+                        <DialogTitle className='mb-3'>By, {blog.postedBy}</DialogTitle>
+                        <DialogDescription>
+                          <div dangerouslySetInnerHTML={{ __html: (blog.content) }} />
+                        </DialogDescription>
+                      </DialogHeader>
+                    </DialogContent>
+                  </Dialog>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex flex-col">
+                    <span>{blog.postedBy}</span>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          ))}
         </div>
       </div>
     </div>

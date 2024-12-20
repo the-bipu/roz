@@ -1,32 +1,12 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 
-import {
-    Form,
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from "@/components/ui/form";
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
-import {
-    Dialog,
-    DialogContent,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/dialog";
 import Link from 'next/link';
-import Image from 'next/image';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+
 import { Button } from '../ui/button';
-import { PackagePlus, Plus } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { toast } from '@/hooks/use-toast';
@@ -38,8 +18,6 @@ import { Input } from '../ui/input';
 import { FaGoogle } from 'react-icons/fa';
 import { signIn, useSession } from 'next-auth/react';
 import { UserContext } from '@/context/userContext';
-import { IoPersonCircleOutline } from "react-icons/io5";
-
 
 const FormSchema = z.object({
     name: z.string().min(2, {
@@ -53,15 +31,6 @@ const FormSchema = z.object({
     }),
     isWatched: z.boolean().default(false),
 })
-
-interface Post {
-    _id: string;
-    name: string;
-    review: string;
-    rating: string;
-    isWatched: string;
-    createdAt: string;
-}
 
 const Navbar = () => {
     const { userEmail, admin } = useContext(UserContext);
@@ -117,7 +86,7 @@ const Navbar = () => {
     }
 
     return (
-        <div className='h-auto flex flex-row justify-between items-center mt-6 border-2 border-white rounded-full shadow'>
+        <div className='h-auto flex flex-row justify-between items-center mt-12 border-2 border-white rounded-full shadow'>
             <Link href='/'>
                 <div className='py-2 pl-6 font-bold text-lg uppercase cursor-pointer'>Rozzum</div>
             </Link>
@@ -132,9 +101,13 @@ const Navbar = () => {
                 <Link href='/about'>
                     <div className='pr-6 font-bold text-lg uppercase'>About</div>
                 </Link>
-                {(userEmail && admin) && (
+                {(userEmail && admin) ? (
                     <Link href='/blogs/new'>
                         <div className='pr-6 font-bold text-lg uppercase'>Add Blogs</div>
+                    </Link>
+                ) : (
+                    <Link href='/nothing'>
+                        <div className='pr-6 font-bold text-lg uppercase'>Nothing</div>
                     </Link>
                 )}
             </div>

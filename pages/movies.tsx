@@ -111,7 +111,7 @@ export default function Movies() {
 
   return (
     <React.Fragment>
-      <div className="w-full h-auto min-h-screen flex flex-col items-center justify-start py-6 text-white bg-mando">
+      <div className="w-full h-auto min-h-screen flex flex-col items-center justify-start pb-6 text-white bg-mando">
 
         <Head>
           <link rel="icon" href="/header.png" type="image/png" sizes="70x70" />
