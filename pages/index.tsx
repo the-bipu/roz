@@ -12,7 +12,7 @@ export default function Home() {
   const { admin } = useContext(UserContext);
 
   return (
-    <div className="w-full h-screen flex flex-col items-center justify-start py-6 text-white bg-mando">
+    <div className="w-full md:h-screen h-auto flex flex-col items-center justify-start py-6 text-white bg-mando">
 
       <Head>
         <link rel="icon" href="/favicon.ico" type="image/ico" sizes="70x70" />
@@ -51,15 +51,15 @@ export default function Home() {
           )}
         </div>
 
-        <div className="flex flex-col ml-4">
+        <div className="flex flex-col ml-4 md:w-[500px] w-11/12">
           <div className="md:text-9xl text-2xl font-bold text-white">Rozzum</div>
-          <div className="text-base font-light ml-1">here is the description</div>
+          <div className="text-base text-justify font-light ml-1">Rozzum is one of my best creations, and do you know why, as it helps me managing one of my favourite part of my life, which is again Movies; Currently rozz have limitations but one day she'll be grown AI and i'm giving it my all to make this possible.</div>
         </div>
 
         <div className="flex flex-row gap-6 flex-wrap items-center justify-center">
-          <div className="md:w-[32%] w-full h-52 border-2 border-white bg-black rounded-lg p-6">Feature 1</div>
-          <div className="md:w-[32%] w-full h-52 border-2 border-white bg-black rounded-lg p-6">Feature 2</div>
-          <div className="md:w-[32%] w-full h-52 border-2 border-white bg-black rounded-lg p-6">Feature 3</div>
+          <div className="md:w-[32%] w-full h-52 border-2 border-white bg-[#0f0f0faf] rounded-lg p-6">Feature 1</div>
+          <div className="md:w-[32%] w-full h-52 border-2 border-white bg-[#0f0f0faf] rounded-lg p-6">Feature 2</div>
+          <div className="md:w-[32%] w-full h-52 border-2 border-white bg-[#0f0f0faf] rounded-lg p-6">Feature 3</div>
         </div>
 
       </div>
