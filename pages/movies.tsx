@@ -111,13 +111,12 @@ export default function Movies() {
 
   return (
     <React.Fragment>
+      <Head>
+        <link rel="icon" href="/favicon.ico" type="image/ico" sizes="70x70" />
+        <title>Rozz</title>
+      </Head>
+
       <div className="w-full h-auto min-h-screen flex flex-col items-center justify-start pb-6 text-white bg-mando">
-
-        <Head>
-          <link rel="icon" href="/header.png" type="image/png" sizes="70x70" />
-          <title>Roz</title>
-        </Head>
-
         <div className="w-11/12 h-full flex flex-col">
 
           <Navbar />
