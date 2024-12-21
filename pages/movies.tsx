@@ -32,7 +32,7 @@ interface Blog {
 }
 
 export default function Movies() {
-  const { userEmail } = useContext(UserContext);
+  const { userEmail, admin } = useContext(UserContext);
 
   const [isActive, setIsActive] = useState('watched');
   const [searchQuery, setSearchQuery] = useState("");
@@ -183,12 +183,12 @@ export default function Movies() {
                 {posts
                   .filter((post) => !post.isWatched && post.name.toLowerCase().includes(searchQuery))
                   .map((post) => (
-                    <div key={post._id} className="md:w-[32%] w-full relative">
-                      <Card className="h-full text-white bg-black border-none">
+                    <div key={post._id} className="md:w-[32%] w-full relative border-2 border-white rounded-lg">
+                      <Card className="h-full text-white bg-[#000000be] border-none">
                         <CardHeader>
                           <CardTitle className="text-lg font-light flex flex-row justify-between items-center">
                             <div className="w-auto backdrop-blur-sm">{post.name}</div>
-                            {userEmail && (
+                            {(userEmail && admin) && (
                               <Square
                                 className="cursor-pointer"
                                 onClick={() => handleMarkAsWatched(post._id)}
