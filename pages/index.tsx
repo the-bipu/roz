@@ -88,9 +88,21 @@ export default function Home() {
         </div>
 
         <div className="flex flex-row gap-6 flex-wrap items-center justify-center">
-          <div className="md:w-[32%] w-full h-52 border-2 border-white bg-[#0f0f0faf] rounded-lg p-6">Feature 1</div>
-          <div className="md:w-[32%] w-full h-52 border-2 border-white bg-[#0f0f0faf] rounded-lg p-6">Feature 2</div>
-          <div className="md:w-[32%] w-full h-52 border-2 border-white bg-[#0f0f0faf] rounded-lg p-6">Feature 3</div>
+          <div className="md:w-[32%] w-full h-52 border-2 border-white bg-[#0f0f0faf] rounded-lg p-6">
+            <Image src={'/index/movie.svg'} alt='cinema' width={60} height={60} />
+            <div className="font-bold text-xl uppercase mt-2">Track Movies</div>
+            <div>Track the movies you watch and your wishlist.</div>
+          </div>
+          <div className="md:w-[32%] w-full h-52 border-2 border-white bg-[#0f0f0faf] rounded-lg p-6">
+            <Image src={'/index/blog.svg'} alt='cinema' width={60} height={60} />
+            <div className="font-bold text-xl uppercase mt-2">Write Blogs</div>
+            <div>Write blogs for yourself, for the things you want.</div>
+          </div>
+          <div className="md:w-[32%] w-full h-52 border-2 border-white bg-[#0f0f0faf] rounded-lg p-6">
+            <Image src={'/index/enjoy.svg'} alt='cinema' width={60} height={60} />
+            <div className="font-bold text-xl uppercase mt-2">Just Chill</div>
+            <div>Just enjoy the moment by doing nothing.</div>
+          </div>
         </div>
 
       </div>

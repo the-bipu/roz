@@ -129,7 +129,7 @@ const Navbar = () => {
                                         name="name"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>Name of the movie;!</FormLabel>
+                                                <FormLabel>Name the movie;!</FormLabel>
                                                 <FormControl>
                                                     <Input placeholder="Star Wars" {...field} />
                                                 </FormControl>
@@ -145,7 +145,7 @@ const Navbar = () => {
                                         name="review"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>Write your thoughts on this movie;</FormLabel>
+                                                <FormLabel>Your thoughts on this movie;</FormLabel>
                                                 <FormControl>
                                                     <Textarea placeholder="liked it;" {...field} className="min-h-32" />
                                                 </FormControl>
@@ -161,7 +161,7 @@ const Navbar = () => {
                                         name="rating"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>College</FormLabel>
+                                                <FormLabel>Rate it;</FormLabel>
                                                 <Select onValueChange={field.onChange} value={field.value}>
                                                     <FormControl>
                                                         <SelectTrigger>
