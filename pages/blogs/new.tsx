@@ -90,11 +90,11 @@ const CreateBlogs = () => {
     ];
 
     return (
-        <div className='flex flex-col w-full min-h-screen items-center justify-center bg-[#0d1117]'>
+        <div className='flex flex-col w-full min-h-screen items-center justify-center bg-mando'>
 
             <Head>
-                <link rel="icon" href="/header.png" type="image/png" sizes="70x70" />
-                <title>Rozum Unit 7134</title>
+                <link rel="icon" href="/favicon.ico" type="image/ico" sizes="70x70" />
+                <title>New Blog | Rozz</title>
             </Head>
 
             <div className='flex flex-col items-center justify-center h-full w-full overflow-y-auto scrollHide'>

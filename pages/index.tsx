@@ -3,7 +3,7 @@
 import React, { useContext } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 import { UserContext } from "@/context/userContext";
 import { FaGoogle } from "react-icons/fa";
 import { IoPersonCircleOutline } from "react-icons/io5";
@@ -43,7 +43,7 @@ export default function Home() {
           </div>
 
           {admin ? (
-            <div className='mr-2 font-bold text-2xl uppercase cursor-pointer bg-white rounded-full md:flex hidden items-center justify-center p-1'>
+            <div className='mr-2 font-bold text-2xl uppercase cursor-pointer bg-white rounded-full md:flex hidden items-center justify-center p-1' onClick={() => signOut()}>
               <IoPersonCircleOutline className="text-black" />
             </div>
           ) : (
@@ -57,6 +57,7 @@ export default function Home() {
           </div>
         </div>
 
+        {/* mobile navigation */}
         <div className={`fixed top-0 left-0 w-full h-full z-[100] bg-black text-white ${isNav ? 'flex' : 'hidden'} flex-col items-center justify-start`}>
           <div className='h-auto w-11/12 flex flex-row justify-between items-center mt-12 border-2 border-white rounded-full shadow'>
             <Link href='/'>
