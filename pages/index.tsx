@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { signIn, signOut } from "next-auth/react";
@@ -11,6 +11,18 @@ import Image from "next/image";
 
 export default function Home() {
   const { admin, isNav, setIsNav } = useContext(UserContext);
+
+  useEffect(() => {
+    if (isNav) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isNav]);
 
   return (
     <div className={`w-full md:h-screen h-auto flex flex-col items-center justify-start md:py-6 py-0 pb-6 text-white bg-mando ${isNav && 'scrollHide'}`}>
@@ -59,7 +71,7 @@ export default function Home() {
 
         {/* mobile navigation */}
         <div className={`fixed top-0 left-0 w-full h-full z-[100] bg-black text-white ${isNav ? 'flex' : 'hidden'} flex-col items-center justify-start`}>
-          <div className='h-auto w-11/12 flex flex-row justify-between items-center mt-12 border-2 border-white rounded-full shadow'>
+          <div className='h-auto w-11/12 flex flex-row justify-between items-center mt-6 border-2 border-white rounded-full shadow'>
             <Link href='/'>
               <div className='py-2 pl-6 font-bold text-lg uppercase cursor-pointer'>Rozzum</div>
             </Link>

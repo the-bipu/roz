@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import Link from 'next/link';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -35,6 +35,18 @@ const FormSchema = z.object({
 
 const Navbar = () => {
     const { userEmail, admin, isNav, setIsNav } = useContext(UserContext);
+
+    useEffect(() => {
+        if (isNav) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "";
+        }
+
+        return () => {
+            document.body.style.overflow = "";
+        };
+    }, [isNav]);
 
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
@@ -87,7 +99,7 @@ const Navbar = () => {
     }
 
     return (
-        <div className='h-auto flex flex-row justify-between items-center mt-12 border-2 border-white text-white rounded-full shadow'>
+        <div className='h-auto flex flex-row justify-between items-center mt-6 border-2 border-white text-white rounded-full shadow'>
             <Link href='/'>
                 <div className='py-2 pl-6 font-bold text-lg uppercase cursor-pointer'>Rozzum</div>
             </Link>
@@ -114,9 +126,6 @@ const Navbar = () => {
             </div>
 
             <div className='flex flex-row gap-4 items-center justify-center'>
-                <div className='mr-4 cursor-pointer md:hidden flex items-center justify-center' onClick={() => setIsNav(!isNav)}>
-                    <Image src={'/nav/dash.svg'} alt="menu" width={20} height={20} />
-                </div>
 
                 {(userEmail && admin) ? (
                     <Dialog>
@@ -220,10 +229,14 @@ const Navbar = () => {
                         </DialogContent>
                     </Dialog>
                 ) : (
-                    <div className='mr-2 font-bold text-2xl uppercase cursor-pointer bg-white rounded-full flex items-center justify-center p-1' onClick={() => { signIn("google"); }}>
+                    <div className='font-bold text-2xl uppercase cursor-pointer bg-white rounded-full flex items-center justify-center p-1' onClick={() => { signIn("google"); }}>
                         <FaGoogle className="text-black" />
                     </div>
                 )}
+
+                <div className='mr-4 cursor-pointer md:hidden flex items-center justify-center' onClick={() => setIsNav(!isNav)}>
+                    <Image src={'/nav/dash.svg'} alt="menu" width={20} height={20} />
+                </div>
             </div>
 
             {/* mobile navigation */}
