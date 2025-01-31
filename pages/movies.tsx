@@ -123,8 +123,8 @@ export default function Movies() {
 
           <div className="w-full h-auto mt-6">
 
-            <div className="flex flex-row items-center justify-between mb-8">
-              <div className="flex flex-row gap-4">
+            <div className="flex flex-row flex-wrap items-center justify-between mb-8 gap-4">
+              <div className="flex flex-row flex-wrap gap-4">
                 <Button variant={isActive === 'watched' ? 'secondary' : 'outline'} className={`text-base font-medium rounded-full px-6 py-2`} onClick={() => setIsActive('watched')}>Movies Watched</Button>
                 <Button variant={isActive === 'wishlist' ? 'secondary' : 'outline'} className={`text-base font-medium rounded-full px-6 py-2`} onClick={() => setIsActive('wishlist')}>Wishlist</Button>
                 <Button variant={isActive === 'blogs' ? 'secondary' : 'outline'} className={`text-base font-medium rounded-full px-6 py-2`} onClick={() => setIsActive('blogs')}>Blogs</Button>
