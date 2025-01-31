@@ -13,7 +13,7 @@ export default function Home() {
   const { admin, isNav, setIsNav } = useContext(UserContext);
 
   return (
-    <div className={`w-full md:h-screen h-auto flex flex-col items-center justify-start py-6 text-white bg-mando ${isNav && 'scrollHide'}`}>
+    <div className={`w-full md:h-screen h-auto flex flex-col items-center justify-start md:py-6 py-0 pb-6 text-white bg-mando ${isNav && 'scrollHide'}`}>
 
       <Head>
         <link rel="icon" href="/favicon.ico" type="image/ico" sizes="70x70" />
@@ -83,8 +83,8 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="flex flex-col ml-4 md:w-[500px] w-11/12 md:mt-0 my-20">
-          <div className="md:text-9xl text-8xl font-bold text-white">Rozzum</div>
+        <div className="flex flex-col md:ml-4 ml-0 md:w-[500px] w-full md:mt-0 my-20">
+          <div className="md:text-9xl text-6xl font-bold text-white">Rozzum</div>
           <div className="text-base text-justify font-light ml-1">Rozzum is one of my best creations, and do you know why, as it helps me managing one of my favourite part of my life, which is again Movies; Currently rozz have limitations but one day she'll be grown AI and i'm giving it my all to make this possible.</div>
         </div>
 
