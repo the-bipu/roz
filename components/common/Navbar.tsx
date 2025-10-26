@@ -99,7 +99,7 @@ const Navbar = () => {
     }
 
     return (
-        <div className='h-auto flex flex-row justify-between items-center mt-6 border-2 border-white text-white rounded-full shadow'>
+        <div className='h-auto flex flex-row justify-between items-center mt-4 text-white rounded-full shadow'>
             <Link href='/'>
                 <div className='py-2 pl-6 font-bold text-lg uppercase cursor-pointer'>Rozzum</div>
             </Link>

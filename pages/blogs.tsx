@@ -44,7 +44,7 @@ const GetBlogs = () => {
   }, []);
 
   return (
-    <div className='flex w-full h-screen items-center justify-center bg-mando text-white'>
+    <div className='flex w-full h-screen items-center justify-center bg-[#131E21] text-white'>
 
       <div className="w-11/12 h-full flex flex-col">
         <Navbar />

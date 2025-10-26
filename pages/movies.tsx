@@ -116,7 +116,7 @@ export default function Movies() {
         <title>Rozz</title>
       </Head>
 
-      <div className="w-full h-auto min-h-screen flex flex-col items-center justify-start pb-6 text-white bg-mando">
+      <div className="w-full h-auto min-h-screen flex flex-col items-center justify-start pb-6 text-white bg-[#131E21]">
         <div className="w-11/12 h-full flex flex-col">
 
           <Navbar />

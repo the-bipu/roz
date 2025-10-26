@@ -11,7 +11,7 @@ export default function About() {
     const { isNav, setIsNav } = useContext(UserContext);
 
     return (
-        <div className={`w-full md:h-screen h-auto flex flex-col items-center justify-start py-6 text-white bg-mando ${isNav && 'scrollHide'}`}>
+        <div className={`w-full md:h-screen h-auto flex flex-col items-center justify-start py-6 text-white bg-[#131E21] ${isNav && 'scrollHide'}`}>
 
             <Head>
                 <link rel="icon" href="/favicon.ico" type="image/ico" sizes="70x70" />
