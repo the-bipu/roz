@@ -114,12 +114,6 @@ html::-webkit-scrollbar-thumb {
   background-size: cover;
 }
 
-.bg-mando {
-  background-image: url("/mando-dark.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
 /* loader data */
 
 @keyframes clockwise {
