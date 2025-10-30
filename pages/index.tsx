@@ -3,6 +3,7 @@
 import React, { useContext, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { signIn, signOut } from "next-auth/react";
 import { UserContext } from "@/context/userContext";
 import { FaGoogle } from "react-icons/fa";
@@ -22,6 +23,7 @@ import { Input } from "@/components/ui/input";
 
 export default function Home() {
   const { admin, isNav, setIsNav } = useContext(UserContext);
+  const router = useRouter();
 
   useEffect(() => {
     if (isNav) {
@@ -34,6 +36,10 @@ export default function Home() {
       document.body.style.overflow = "";
     };
   }, [isNav]);
+
+  const handleNavigation = (value: string) => {
+    router.push(`/${value}`);
+  };
 
   return (
     <div className={`w-full md:h-screen bg-[#131E21] h-auto flex flex-col items-center justify-start md:py-6 py-0 pb-6 text-white bg-mando ${isNav && 'scrollHide'}`}>
@@ -53,9 +59,9 @@ export default function Home() {
 
           <div className="w-9/12 h-auto flex flex-row gap-2 items-center justify-between">
             <div className='w-full md:flex hidden flex-row gap-2 items-center justify-center'>
-              <Select>
+              <Select onValueChange={handleNavigation}>
                 <SelectTrigger className="w-[180px] h-10 bg-[#2A3538] text-white border-none">
-                  <SelectValue placeholder="Movies" />
+                  <SelectValue placeholder="Categories" />
                 </SelectTrigger>
                 <SelectContent className="bg-[#2A3538] text-white border-none">
                   <SelectGroup>

@@ -27,6 +27,7 @@ import { FaGoogle } from 'react-icons/fa';
 import { signIn, useSession } from 'next-auth/react';
 import { UserContext } from '@/context/userContext';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 const FormSchema = z.object({
     name: z.string().min(2, {
@@ -43,6 +44,7 @@ const FormSchema = z.object({
 
 const Navbar = () => {
     const { userEmail, admin, isNav, setIsNav } = useContext(UserContext);
+    const router = useRouter();
 
     useEffect(() => {
         if (isNav) {
@@ -106,6 +108,10 @@ const Navbar = () => {
         }
     }
 
+    const handleNavigation = (value: string) => {
+        router.push(`/${value}`);
+    };
+
     return (
         <div className='h-auto w-full flex flex-row justify-between items-center mt-4'>
             <Link href='/' className="md:w-3/12 w-auto">
@@ -114,7 +120,7 @@ const Navbar = () => {
 
             <div className="w-9/12 h-auto flex flex-row gap-2 items-center justify-between">
                 <div className='w-full md:flex hidden flex-row gap-2 items-center justify-center'>
-                    <Select>
+                    <Select onValueChange={handleNavigation}>
                         <SelectTrigger className="w-[180px] h-10 bg-[#2A3538] text-white border-none">
                             <SelectValue placeholder="Movies" />
                         </SelectTrigger>

@@ -129,7 +129,7 @@ export default function Movies() {
                 <Button variant={isActive === 'wishlist' ? 'secondary' : 'outline'} className={`text-base font-medium rounded-full px-6 py-2`} onClick={() => setIsActive('wishlist')}>Wishlist</Button>
                 <Button variant={isActive === 'blogs' ? 'secondary' : 'outline'} className={`text-base font-medium rounded-full px-6 py-2`} onClick={() => setIsActive('blogs')}>Blogs</Button>
               </div>
-              <Input className="w-96 h-10 border-2 border-white bg-black rounded-full indent-4" placeholder="Search here..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value.toLowerCase())} />
+              <Input className="w-96 h-10 bg-[#2A3538] placeholder:text-white text-white border-none" placeholder="Search here..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value.toLowerCase())} />
             </div>
 
             {isActive === 'watched' && (
