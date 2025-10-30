@@ -2,7 +2,15 @@ import React, { useContext, useEffect } from 'react';
 
 import Link from 'next/link';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 import { Button } from '../ui/button';
@@ -99,39 +107,57 @@ const Navbar = () => {
     }
 
     return (
-        <div className='h-auto flex flex-row justify-between items-center mt-4 text-white rounded-full shadow'>
-            <Link href='/'>
-                <div className='py-2 pl-6 font-bold text-lg uppercase cursor-pointer'>Rozzum</div>
+        <div className='h-auto w-full flex flex-row justify-between items-center mt-4'>
+            <Link href='/' className="md:w-3/12 w-auto">
+                <div className='py-2 font-bold text-lg uppercase cursor-pointer'>Rozzum</div>
             </Link>
 
-            <div className='md:flex hidden flex-row gap-2 items-center justify-center'>
-                <Link href='/movies'>
-                    <div className='pr-6 font-bold text-lg uppercase'>Movies</div>
-                </Link>
-                <Link href='/blogs'>
-                    <div className='pr-6 font-bold text-lg uppercase'>Blogs</div>
-                </Link>
-                <Link href='/about'>
-                    <div className='pr-6 font-bold text-lg uppercase'>About</div>
-                </Link>
+            <div className="w-9/12 h-auto flex flex-row gap-2 items-center justify-between">
+                <div className='w-full md:flex hidden flex-row gap-2 items-center justify-center'>
+                    <Select>
+                        <SelectTrigger className="w-[180px] h-10 bg-[#2A3538] text-white border-none">
+                            <SelectValue placeholder="Movies" />
+                        </SelectTrigger>
+                        <SelectContent className="bg-[#2A3538] text-white border-none">
+                            <SelectGroup>
+                                <SelectLabel>Categories</SelectLabel>
+                                <SelectItem value="movies">Movies</SelectItem>
+                                <SelectItem value="blogs">Blogs</SelectItem>
+                                <SelectItem value="about">About</SelectItem>
+                                <SelectItem value="nothing">Nothing</SelectItem>
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                    <Input placeholder="Search..." className='w-full h-10 bg-[#2A3538] placeholder:text-white text-white border-none' />
+                </div>
+
                 {(userEmail && admin) ? (
-                    <Link href='/blogs/new'>
-                        <div className='pr-6 font-bold text-lg uppercase'>Add Blogs</div>
+                    <Link href='/blogs/new' className='w-auto min-w-32 h-10 bg-[#2A3538] text-white cursor-pointer rounded-md md:flex hidden flex-row gap-1 items-center justify-center py-2 px-2'>
+                        <Image src={'/nav/avatar.jpg'} alt="Google" width={36} height={36} className="h-9 rounded" />
+                        <div className="flex flex-col">
+                            <div className="text-sm font-bold">Add,</div>
+                            <div className="text-xs">New Blog</div>
+                        </div>
                     </Link>
                 ) : (
-                    <Link href='/nothing'>
-                        <div className='pr-6 font-bold text-lg uppercase'>Nothing</div>
+                    <Link href='/nothing' className='w-auto min-w-32 h-10 bg-[#2A3538] text-white cursor-pointer rounded-md md:flex hidden flex-row gap-1 items-center justify-center py-2 px-2'>
+                        <Image src={'/nav/avatar.jpg'} alt="Google" width={36} height={36} className="h-9 rounded" />
+                        <div className="flex flex-col">
+                            <div className="text-sm font-bold">Login,</div>
+                            <div className="text-xs">With Google</div>
+                        </div>
                     </Link>
                 )}
-            </div>
-
-            <div className='flex flex-row gap-4 items-center justify-center'>
 
                 {(userEmail && admin) ? (
                     <Dialog>
                         <DialogTrigger asChild>
-                            <div className='mr-2 font-bold text-2xl uppercase cursor-pointer bg-white rounded-full flex items-center justify-center p-1'>
-                                <Plus className="text-black" />
+                            <div className='w-auto min-w-32 h-10 bg-[#2A3538] text-white mr-2 cursor-pointer rounded-md md:flex hidden flex-row gap-1 items-center justify-center py-2 px-2'>
+                                <Image src={'/nav/avatar.jpg'} alt="Google" width={36} height={36} className="h-9 rounded" />
+                                <div className="flex flex-col">
+                                    <div className="text-sm font-bold">Add,</div>
+                                    <div className="text-xs">New Movie</div>
+                                </div>
                             </div>
                         </DialogTrigger>
                         <DialogContent className="bg-white w-full h-auto">
@@ -228,24 +254,28 @@ const Navbar = () => {
 
                         </DialogContent>
                     </Dialog>
-                ) : (
-                    <div className='font-bold text-2xl uppercase cursor-pointer bg-white rounded-full flex items-center justify-center p-1' onClick={() => { signIn("google"); }}>
-                        <FaGoogle className="text-black" />
+                ) :
+                    <div className='w-auto min-w-32 h-10 bg-[#2A3538] text-white mr-2 cursor-pointer rounded-md md:flex hidden flex-row gap-1 items-center justify-center py-2 px-2' onClick={() => { signIn("google"); }}>
+                        <Image src={'/nav/avatar.jpg'} alt="Google" width={36} height={36} className="h-9 rounded" />
+                        <div className="flex flex-col">
+                            <div className="text-sm font-bold">Login</div>
+                            <div className="text-xs">With Google</div>
+                        </div>
                     </div>
-                )}
+                }
+            </div>
 
-                <div className='mr-4 cursor-pointer md:hidden flex items-center justify-center' onClick={() => setIsNav(!isNav)}>
-                    <Image src={'/nav/dash.svg'} alt="menu" width={20} height={20} />
-                </div>
+            <div className='cursor-pointer md:hidden flex items-center justify-center' onClick={() => setIsNav(!isNav)}>
+                <Image src={'/nav/dash.svg'} alt="menu" width={20} height={20} />
             </div>
 
             {/* mobile navigation */}
-            <div className={`fixed top-0 left-0 w-full h-full z-[100] bg-black text-white ${isNav ? 'flex' : 'hidden'} flex-col items-center justify-start`}>
-                <div className='h-auto w-11/12 flex flex-row justify-between items-center mt-6 border-2 border-white rounded-full shadow'>
+            <div className={`fixed top-0 left-0 w-full h-full z-[100] bg-[#131E21] text-white ${isNav ? 'flex' : 'hidden'} flex-col items-center justify-start`}>
+                <div className='h-auto w-11/12 flex flex-row justify-between items-center mt-4'>
                     <Link href='/'>
-                        <div className='py-2 pl-6 font-bold text-lg uppercase cursor-pointer'>Rozzum</div>
+                        <div className='py-2 font-bold text-lg uppercase cursor-pointer'>Rozzum</div>
                     </Link>
-                    <div className='mr-4 cursor-pointer md:hidden flex items-center justify-center' onClick={() => setIsNav(!isNav)}>
+                    <div className='cursor-pointer md:hidden flex items-center justify-center' onClick={() => setIsNav(!isNav)}>
                         <Image src={'/nav/cross.svg'} alt="menu" width={20} height={20} />
                     </div>
                 </div>
