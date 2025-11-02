@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -21,9 +21,22 @@ import {
 } from "@/components/ui/select"
 import { Input } from "@/components/ui/input";
 
+interface Movie {
+  imdbID: string;
+  Title: string;
+  Year: string;
+  Type: string;
+  Poster: string;
+}
+
 export default function Home() {
   const { admin, isNav, setIsNav } = useContext(UserContext);
   const router = useRouter();
+  const [movies, setMovies] = useState<Movie[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  // Add your OMDB API key here
+  const OMDB_API_KEY = process.env.NEXT_PUBLIC_OMDB_API;
 
   useEffect(() => {
     if (isNav) {
@@ -37,12 +50,35 @@ export default function Home() {
     };
   }, [isNav]);
 
+  useEffect(() => {
+    fetchMovies();
+  }, []);
+
+  const fetchMovies = async () => {
+    try {
+      setLoading(true);
+      // Example: Fetching popular movies - modify the search term as needed
+      const response = await fetch(
+        `http://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=star&type=movie`
+      );
+      const data = await response.json();
+
+      if (data.Response === "True") {
+        setMovies(data.Search);
+      }
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching movies:", error);
+      setLoading(false);
+    }
+  };
+
   const handleNavigation = (value: string) => {
     router.push(`/${value}`);
   };
 
   return (
-    <div className={`w-full md:h-screen bg-[#131E21] h-auto flex flex-col items-center justify-start md:py-6 py-0 pb-6 text-white bg-mando ${isNav && 'scrollHide'}`}>
+    <div className={`w-full min-h-screen bg-[#131E21] h-auto flex flex-col items-center justify-start md:py-6 py-0 pb-6 text-white bg-mando ${isNav && 'scrollHide'}`}>
 
       <Head>
         <link rel="icon" href="/favicon.ico" type="image/ico" sizes="70x70" />
@@ -126,9 +162,45 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="flex flex-col md:ml-4 ml-0 md:w-[500px] w-full md:mt-0 my-20">
-          <div className="md:text-9xl text-6xl font-bold text-white">Rozzum</div>
-          <div className="text-base text-justify font-light ml-1">Rozzum is one of my best creations, and do you know why, as it helps me managing one of my favourite part of my life, which is again Movies; Currently rozz have limitations but one day she'll be grown AI and i'm giving it my all to make this possible.</div>
+        <div className='w-11/12 h-auto flex flex-col items-start justify-center'>
+          {/* Hero Section */}
+          <div className="flex flex-col md:w-[500px] w-full md:mt-0 mt-20">
+            <div className="md:text-9xl text-6xl font-bold text-white">Rozzum</div>
+            <div className="text-base text-justify font-light ml-1">Rozzum is one of my best creations, and do you know why, as it helps me managing one of my favourite part of my life, which is again Movies; Currently rozz have limitations but one day she'll be grown AI and i'm giving it my all to make this possible.</div>
+          </div>
+
+          {/* Movies Section */}
+          <div className="w-full mt-16 mb-10">
+            <h2 className="text-3xl font-bold mb-6 md:ml-4 ml-0">New Movies</h2>
+
+            {loading ? (
+              <div className="flex items-center justify-center py-20">
+                <div className="text-xl">Loading movies...</div>
+              </div>
+            ) : (
+              <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 items-center justify-between">
+                {movies.map((movie) => (
+                  <div
+                    key={movie.imdbID}
+                    className="bg-[#2A3538] rounded-lg overflow-hidden cursor-pointer hover:scale-105 transition-transform duration-200"
+                  >
+                    <div className="relative w-full h-96">
+                      <Image
+                        src={movie.Poster !== "N/A" ? movie.Poster : "/placeholder-movie.jpg"}
+                        alt={movie.Title}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="p-3">
+                      <h3 className="font-semibold text-sm line-clamp-1">{movie.Title}</h3>
+                      <p className="text-xs text-gray-400 mt-1">{movie.Year}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
 
       </div>
